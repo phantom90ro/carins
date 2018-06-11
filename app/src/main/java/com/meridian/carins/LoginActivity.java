@@ -40,7 +40,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 
 /**
- *  hello this is a push
+ *  hello this is a pushx
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
