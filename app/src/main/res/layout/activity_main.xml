@@ -26,15 +26,15 @@
         android:layout_above="@+id/password_input"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:background="#11000000"
+        android:background="@drawable/input_text_rounded"
+        android:bottomLeftRadius="50dp"
+        android:bottomRightRadius="15dp"
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:textSize="16sp"
-        android:bottomRightRadius="15dp"
-        android:bottomLeftRadius="15dp"
-        android:topLeftRadius="15dp"
-        android:topRightRadius="15dp" />
+        android:topLeftRadius="15sp"
+        android:topRightRadius="15sp" />
 
     <EditText
         android:id="@+id/password_input"
@@ -43,7 +43,7 @@
         android:layout_alignBottom="@+id/log_in_button"
         android:layout_alignStart="@+id/email_input"
         android:layout_marginBottom="130dp"
-        android:background="#11000000"
+        android:background="@drawable/input_text_rounded"
         android:ems="10"
         android:hint="@string/pass_hint"
         android:inputType="textPassword"
