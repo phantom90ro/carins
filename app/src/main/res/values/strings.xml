@@ -7,4 +7,9 @@
     <string name="textError">Login Failed</string>
     <string name="loginSuccess">Login Successful</string>
     <string name="btnGoBack">Go Back</string>
+
+    <string name="placeholder_1">Button 1</string>
+    <string name="placeholder_2">Button 2</string>
+    <string name="placeholder_3">Button 3</string>
+    <string name="placeholder_4">Button 4</string>
 </resources>
