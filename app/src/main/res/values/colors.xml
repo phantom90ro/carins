@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--Colors-->
+    <color name="tufts_blue">#396DBF</color>
+    <color name="metalic_seaweed">#177E89</color>
+    <color name="white">#FDFDFF</color>
+    <color name="madder_lake">#CC2936</color>
 </resources>

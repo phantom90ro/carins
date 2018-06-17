@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg"
+    android:background="@drawable/main_bg_gradient"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -32,9 +32,7 @@
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
-        android:textSize="16sp"
-        android:topLeftRadius="15sp"
-        android:topRightRadius="15sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/password_input"
@@ -47,11 +45,7 @@
         android:ems="10"
         android:hint="@string/pass_hint"
         android:inputType="textPassword"
-        android:textSize="16sp"
-        android:bottomRightRadius="15dp"
-        android:bottomLeftRadius="15dp"
-        android:topLeftRadius="15dp"
-        android:topRightRadius="15dp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/log_in_button"
