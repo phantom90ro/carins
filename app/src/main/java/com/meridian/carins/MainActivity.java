@@ -1,10 +1,10 @@
-package com.guru.login;
+package com.meridian.carins;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,10 +20,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
-
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
     private EditText etEmail;
@@ -35,9 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Get Reference to variables
-        etEmail = (EditText) findViewById(R.id.email);
-        etPassword = (EditText) findViewById(R.id.password);
-
+        etEmail = findViewById(R.id.email_input);
+        etPassword = findViewById(R.id.password_input);
     }
 
     // Triggers when LOGIN Button clicked
@@ -47,13 +45,11 @@ public class MainActivity extends AppCompatActivity {
         final String email = etEmail.getText().toString();
         final String password = etPassword.getText().toString();
 
-        // Initialize  AsyncLogin() class with email and password
+        // Initialize  com.meridian.carins.AsyncLogin() class with email and password
         new AsyncLogin().execute(email,password);
-
     }
 
-    private class AsyncLogin extends AsyncTask<String, String, String>
-    {
+    private class AsyncLogin extends AsyncTask<String, String, String> {
         ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
         HttpURLConnection conn;
         URL url = null;
@@ -66,23 +62,21 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.setMessage("\tLoading...");
             pdLoading.setCancelable(false);
             pdLoading.show();
-
         }
+
         @Override
         protected String doInBackground(String... params) {
             try {
-
                 // Enter URL address where your php file resides
                 url = new URL("http://82.79.31.96/carinshndlr/login.inc.php");
-
             } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 return "exception";
             }
+
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -108,13 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 conn.connect();
 
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
                 return "exception";
             }
 
             try {
-
                 int response_code = conn.getResponseCode();
 
                 // Check if successful connection made
@@ -132,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Pass data to onPostExecute method
                     return(result.toString());
-
-                }else{
+                } else{
 
                     return("unsuccessful");
                 }
@@ -144,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
             } finally {
                 conn.disconnect();
             }
-
-
         }
 
         @Override
@@ -160,22 +149,20 @@ public class MainActivity extends AppCompatActivity {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
-
-                Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 startActivity(intent);
                 MainActivity.this.finish();
-
-            }else if (result.equalsIgnoreCase("false")){
+            } else if (result.equalsIgnoreCase("false")){
 
                 // If username and password does not match display a error message
-                Toast.makeText(MainActivity.this, "Invalid email or password", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Invalid email or password",
+                        Toast.LENGTH_LONG).show();
+            } else if (result.equalsIgnoreCase("exception") ||
+                    result.equalsIgnoreCase("unsuccessful")) {
 
-            } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
-
-                Toast.makeText(MainActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(MainActivity.this, "Connection Problem.",
+                        Toast.LENGTH_LONG).show();
             }
         }
-
     }
 }
