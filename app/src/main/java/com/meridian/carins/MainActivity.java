@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL("http://localhost/carins/login.inc.php");
+                url = new URL("http://82.79.31.96/carinshndlr/login.inc.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
