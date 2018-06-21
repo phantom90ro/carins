@@ -1,23 +1,22 @@
 <resources>
-    <string name="app_name">carins</string>
-    <string name="email_hint">Email</string>
-    <string name="pass_hint">Password</string>
-    <string name="btn_text">Log In</string>
+    <string name="app_name">Asigurari Auto</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Full Name</string>
+    <string name="hint_address">Address</string>
+
+    <string name="btn_login">Log In</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_back">Go Back</string>
+    <string name="btn_logout">Log Out</string>
+    <string name="btn_submit">Submit</string>
     <string name="textError">Login Failed</string>
     <string name="loginSuccess">Login Successful</string>
-    <string name="btnGoBack">Go Back</string>
+    <string name="msg_welcome">Welcome</string>
+
     <string name="placeholder_1">Button 1</string>
     <string name="placeholder_2">Button 2</string>
     <string name="placeholder_3">Button 3</string>
     <string name="placeholder_4">Button 4</string>
-    <string name="welcome">Welcome</string>
-    <string name="btn_logout">LOGOUT</string>
-    <string name="name">Fullname</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_name">Fullname</string>
-    <string name="btn_login">LOGIN</string>
-    <string name="btn_register">REGISTER</string>
-    <string name="btn_link_to_register">Not a member? Sign up now.</string>
-    <string name="btn_link_to_login">Already registred! Login Me.</string>
 </resources>

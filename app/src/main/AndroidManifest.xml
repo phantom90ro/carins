@@ -3,36 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.meridian.carins">
 
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="21" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.meridian.carins.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <!--Added this because the app was crying for google-->
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:launchMode="singleTop" />
     </application>

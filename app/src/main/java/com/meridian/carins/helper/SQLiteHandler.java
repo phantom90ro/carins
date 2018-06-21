@@ -1,4 +1,4 @@
-package com.meridian.carins;
+package com.meridian.carins.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -65,7 +65,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name); // Name
         values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_UID, uid); // Email
+        values.put(KEY_UID, uid); // Unique ID
         values.put(KEY_CREATED_AT, created_at); // Created At
 
         // Inserting Row
@@ -79,7 +79,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * Getting user data from database
      * */
     public HashMap<String, String> getUserDetails() {
-        HashMap<String, String> user = new HashMap<String, String>();
+        HashMap<String, String> user = new HashMap<>();
         String selectQuery = "SELECT  * FROM " + TABLE_USER;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -95,7 +95,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         // return user
-        Log.d(TAG, "Fetching user from Sqlite: " + user.toString());
+        Log.d(TAG, "Fetching user from SQLite: " + user.toString());
 
         return user;
     }
@@ -109,7 +109,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.delete(TABLE_USER, null, null);
         db.close();
 
-        Log.d(TAG, "Deleted all user info from sqlite");
+        Log.d(TAG, "Deleted all user info from SQLite");
     }
-
 }

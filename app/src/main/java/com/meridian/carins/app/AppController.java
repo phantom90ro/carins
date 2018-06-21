@@ -1,4 +1,4 @@
-package com.meridian.carins;
+package com.meridian.carins.app;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -38,11 +38,13 @@ public class AppController extends Application {
         getRequestQueue().add(req);
     }
 
+    @SuppressWarnings("unused")
     public <T> void addToRequestQueue(Request<T> req) {
         req.setTag(TAG);
         getRequestQueue().add(req);
     }
 
+    @SuppressWarnings("unused")
     public void cancelPendingRequests(Object tag) {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
