@@ -1,168 +1,77 @@
 package com.meridian.carins;
 
+import com.meridian.carins.SQLiteHandler;
+import com.meridian.carins.SessionManager;
+
+import java.util.HashMap;
+
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
-    public static final int CONNECTION_TIMEOUT=10000;
-    public static final int READ_TIMEOUT=15000;
-    private EditText etEmail;
-    private EditText etPassword;
+    private TextView txtName;
+    private TextView txtEmail;
+    private Button btnLogout;
+
+    private SQLiteHandler db;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get Reference to variables
-        etEmail = findViewById(R.id.email_input);
-        etPassword = findViewById(R.id.password_input);
-    }
+        txtName = (TextView) findViewById(R.id.name);
+        txtEmail = (TextView) findViewById(R.id.email);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
-    // Triggers when LOGIN Button clicked
-    public void checkLogin(View arg0) {
+        // SqLite database handler
+        db = new SQLiteHandler(getApplicationContext());
 
-        // Get text from email and passord field
-        final String email = etEmail.getText().toString();
-        final String password = etPassword.getText().toString();
+        // session manager
+        session = new SessionManager(getApplicationContext());
 
-        // Initialize  com.meridian.carins.AsyncLogin() class with email and password
-        new AsyncLogin().execute(email,password);
-    }
-
-    private class AsyncLogin extends AsyncTask<String, String, String> {
-        ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
-        HttpURLConnection conn;
-        URL url = null;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            //this method will be running on UI thread
-            pdLoading.setMessage("\tLoading...");
-            pdLoading.setCancelable(false);
-            pdLoading.show();
+        if (!session.isLoggedIn()) {
+            logoutUser();
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                // Enter URL address where your php file resides
-                url = new URL("http://82.79.31.96/carinshndlr/login.inc.php");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return "exception";
+        // Fetching user details from sqlite
+        HashMap<String, String> user = db.getUserDetails();
+
+        String name = user.get("name");
+        String email = user.get("email");
+
+        // Displaying the user details on the screen
+        txtName.setText(name);
+        txtEmail.setText(email);
+
+        // Logout button click event
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                logoutUser();
             }
-
-            try {
-                // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(READ_TIMEOUT);
-                conn.setConnectTimeout(CONNECTION_TIMEOUT);
-                conn.setRequestMethod("POST");
-
-                // setDoInput and setDoOutput method depict handling of both send and receive
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                // Append parameters to URL
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("username", params[0])
-                        .appendQueryParameter("password", params[1]);
-                String query = builder.build().getEncodedQuery();
-
-                // Open connection for sending data
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-                conn.connect();
-
-            } catch (IOException e1) {
-                e1.printStackTrace();
-                return "exception";
-            }
-
-            try {
-                int response_code = conn.getResponseCode();
-
-                // Check if successful connection made
-                if (response_code == HttpURLConnection.HTTP_OK) {
-
-                    // Read data sent from server
-                    InputStream input = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                    StringBuilder result = new StringBuilder();
-                    String line;
-
-                    while ((line = reader.readLine()) != null) {
-                        result.append(line);
-                    }
-
-                    // Pass data to onPostExecute method
-                    return(result.toString());
-                } else{
-
-                    return("unsuccessful");
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "exception";
-            } finally {
-                conn.disconnect();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            //this method will be running on UI thread
-
-            pdLoading.dismiss();
-
-            if(result.equalsIgnoreCase("true"))
-            {
-                /* Here launching another activity when login successful. If you persist login state
-                use sharedPreferences of Android. and logout button to clear sharedPreferences.
-                 */
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
-                MainActivity.this.finish();
-            } else if (result.equalsIgnoreCase("false")){
-
-                // If username and password does not match display a error message
-                Toast.makeText(MainActivity.this, "Invalid email or password",
-                        Toast.LENGTH_LONG).show();
-            } else if (result.equalsIgnoreCase("exception") ||
-                    result.equalsIgnoreCase("unsuccessful")) {
-
-                Toast.makeText(MainActivity.this, "Connection Problem.",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+        });
     }
-}
+
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+}}
