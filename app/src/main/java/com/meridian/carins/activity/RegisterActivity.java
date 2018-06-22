@@ -76,11 +76,13 @@ public class RegisterActivity extends Activity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String name = inputFullName.getText().toString().trim();
+                String address = inputAddress.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, email, password);
+                if (!name.isEmpty() && !address.isEmpty() && !email.isEmpty()
+                        && !password.isEmpty()) {
+                    registerUser(name, address, email, password);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -104,7 +106,8 @@ public class RegisterActivity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String name, final String email, final String password) {
+    private void registerUser(final String name, final String address,
+                              final String email, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -129,11 +132,12 @@ public class RegisterActivity extends Activity {
 
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
+                        String address = user.getString("address");
                         String email = user.getString("email");
                         String created_at = user .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(name, address, email, uid, created_at);
 
                         Toast.makeText(getApplicationContext(),
                                 "User successfully registered. Try login now!",
@@ -170,6 +174,7 @@ public class RegisterActivity extends Activity {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
+                params.put("address", address);
                 params.put("email", email);
                 params.put("password", password);
 
