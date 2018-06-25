@@ -16,7 +16,7 @@ import com.meridian.carins.R;
 import com.meridian.carins.helper.SQLiteHandler;
 import com.meridian.carins.helper.SessionManager;
 
-public class MainActivity extends Activity {
+public class MenuActivity extends Activity {
 
     TextView txtName;
     TextView txtEmail;
@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
         builder.setMessage("Do you want to Log Out?");
         builder.setCancelable(true);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
         db.deleteUsers();
 
         // Launching the login activity
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
@@ -137,22 +137,22 @@ public class MainActivity extends Activity {
      * Placeholder methods
      * */
     public void buttonOption_1() {
-        Toast.makeText(MainActivity.this, "Button option 1",
+        Toast.makeText(MenuActivity.this, "Button option 1",
                 Toast.LENGTH_SHORT).show();
     }
 
     public void buttonOption_2() {
-        Toast.makeText(MainActivity.this, "Button option 2",
+        Toast.makeText(MenuActivity.this, "Button option 2",
                 Toast.LENGTH_SHORT).show();
     }
 
     public void buttonOption_3() {
-        Toast.makeText(MainActivity.this, "Button option 3",
+        Toast.makeText(MenuActivity.this, "Button option 3",
                 Toast.LENGTH_SHORT).show();
     }
 
     public void buttonOption_4() {
-        Toast.makeText(MainActivity.this, "Button option 4",
+        Toast.makeText(MenuActivity.this, "Button option 4",
                 Toast.LENGTH_SHORT).show();
     }
 }
