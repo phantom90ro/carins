@@ -33,7 +33,7 @@ public class RegisterActivity extends Activity {
 
     Button btnRegister;
     Button btnBack;
-    private EditText inputFullName;
+    private EditText inputName;
     EditText inputAddress;
     private EditText inputEmail;
     private EditText inputPassword;
@@ -46,7 +46,7 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        inputFullName = findViewById(R.id.name_input);
+        inputName = findViewById(R.id.name_input);
         inputAddress = findViewById(R.id.address_input);
         inputEmail = findViewById(R.id.email_input);
         inputPassword = findViewById(R.id.password_input);
@@ -75,13 +75,13 @@ public class RegisterActivity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String name = inputFullName.getText().toString().trim();
+                String name = inputName.getText().toString().trim();
                 String address = inputAddress.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !address.isEmpty() && !email.isEmpty()
-                        && !password.isEmpty()) {
+                if (!name.isEmpty() && !address.isEmpty()
+                        && !email.isEmpty() && !password.isEmpty()) {
                     registerUser(name, address, email, password);
                 } else {
                     Toast.makeText(getApplicationContext(),

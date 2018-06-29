@@ -2,12 +2,18 @@ package com.meridian.carins.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -27,12 +33,19 @@ import com.meridian.carins.app.AppController;
 import com.meridian.carins.helper.SQLiteHandler;
 import com.meridian.carins.helper.SessionManager;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements TextWatcher,
+        CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
+    private static final String PREF_NAME = "rem_prefs";
+    private static final String KEY_REMEMBER = "remember";
+    private static final String KEY_USERNAME = "email";
 
     Button btnLogin;
     Button btnRegister;
+    private Switch rem_user;
+    SharedPreferences sharedRemPref;
+    SharedPreferences.Editor editor;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
@@ -44,10 +57,26 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Remember 1
+        sharedRemPref = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedRemPref.edit();
+        rem_user = findViewById(R.id.rem_user);
+
         inputEmail = findViewById(R.id.email_input);
         inputPassword = findViewById(R.id.password_input);
         btnLogin = findViewById(R.id.log_in_button);
         btnRegister = findViewById(R.id.register_button);
+
+        // Remember 2
+        if (sharedRemPref.getBoolean(KEY_REMEMBER, false)) {
+            rem_user.setChecked(true);
+        } else {
+            rem_user.setChecked(false);
+        }
+        inputEmail.setText(sharedRemPref.getString(KEY_USERNAME, ""));
+        inputEmail.addTextChangedListener(this);
+        rem_user.setOnCheckedChangeListener(this);
+        editor.apply();
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -101,8 +130,24 @@ public class LoginActivity extends Activity {
 
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        managePrefs();
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {}
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+        managePrefs();
+    }
+
     /**
-     * function to verify login details in mysql db
+     * Function to verify login details in mysql db
      * */
     private void checkLogin(final String email, final String password) {
         // Tag used to cancel the request
@@ -185,6 +230,22 @@ public class LoginActivity extends Activity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
+    /**
+     * Function to remember user
+     * */
+    private void managePrefs() {
+        if(rem_user.isChecked()) {
+            editor.putString(KEY_USERNAME, inputEmail.getText().toString().trim());
+            editor.putBoolean(KEY_REMEMBER, true);
+            editor.apply();
+        } else {
+            editor.putBoolean(KEY_REMEMBER, false);
+            editor.putString(KEY_USERNAME, "");
+            editor.apply();
+        }
+    }
+
 
     private void showDialog() {
         if (!pDialog.isShowing())

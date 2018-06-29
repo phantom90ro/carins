@@ -6,6 +6,7 @@
     <string name="hint_surname">Nume</string>
     <string name="hint_name">Prenume</string>
     <string name="hint_address">Adresa</string>
+    <string name="hint_phone">Telefon</string>
 
     <string name="btn_login">Log In</string>
     <string name="btn_register">Register</string>
@@ -16,9 +17,8 @@
     <string name="loginSuccess">Login Successful</string>
     <string name="msg_welcome">Bună ziua</string>
 
-    <string name="placeholder_1">asigurari</string>
-    <string name="placeholder_2">status</string>
-    <string name="placeholder_3">profil</string>
-    <string name="placeholder_4">Button 4</string>
-    <string name="placeholder_5">rca</string>
+    <string name="placeholder_1">profil</string>
+    <string name="placeholder_2">asigurari</string>
+    <string name="placeholder_3">status</string>
+    <string name="placeholder_4">rca</string>
 </resources>

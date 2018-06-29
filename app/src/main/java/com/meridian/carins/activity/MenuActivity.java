@@ -21,7 +21,9 @@ public class MenuActivity extends Activity {
     TextView txtName;
     TextView txtEmail;
     Button btnLogout;
-    Button btnOption_1, btnOption_2, btnOption_3, btnOption_4;
+    Button btnProfile;
+    Button btnAsig;
+    Button btnStatus;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -45,7 +47,7 @@ public class MenuActivity extends Activity {
             logoutUser();
         }
 
-        // Fetching user details from sqlite
+        // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
 
         String name = user.get("name");
@@ -64,35 +66,27 @@ public class MenuActivity extends Activity {
         });
 
         // Placeholder button click event
-        btnOption_1 = findViewById(R.id.button);
-        btnOption_1.setOnClickListener(new View.OnClickListener() {
+        btnProfile = findViewById(R.id.btn_profile);
+        btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOption_1();
+                profileCheck();
             }
         });
 
-        btnOption_2 = findViewById(R.id.button2);
-        btnOption_2.setOnClickListener(new View.OnClickListener() {
+        btnAsig = findViewById(R.id.button2);
+        btnAsig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOption_2();
+                asigCheck();
             }
         });
 
-        btnOption_3 = findViewById(R.id.button3);
-        btnOption_3.setOnClickListener(new View.OnClickListener() {
+        btnStatus = findViewById(R.id.button3);
+        btnStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOption_3();
-            }
-        });
-
-        btnOption_4 = findViewById(R.id.button4);
-        btnOption_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                buttonOption_4();
+                statusCheck();
             }
         });
     }
@@ -120,7 +114,7 @@ public class MenuActivity extends Activity {
 
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
+     * preferences Clears the user data from SQLite users table
      * */
     private void logoutUser() {
         session.setLogin(false);
@@ -136,23 +130,18 @@ public class MenuActivity extends Activity {
     /**
      * Placeholder methods
      * */
-    public void buttonOption_1() {
-        Toast.makeText(MenuActivity.this, "Button option 1",
+    public void profileCheck() {
+        Toast.makeText(MenuActivity.this, "Profile",
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void buttonOption_2() {
-        Toast.makeText(MenuActivity.this, "Button option 2",
+    public void asigCheck() {
+        Toast.makeText(MenuActivity.this, "Assurance",
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void buttonOption_3() {
-        Toast.makeText(MenuActivity.this, "Button option 3",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    public void buttonOption_4() {
-        Toast.makeText(MenuActivity.this, "Button option 4",
+    public void statusCheck() {
+        Toast.makeText(MenuActivity.this, "Status",
                 Toast.LENGTH_SHORT).show();
     }
 }
