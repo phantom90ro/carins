@@ -33,10 +33,12 @@ public class RegisterActivity extends Activity {
 
     Button btnRegister;
     Button btnBack;
+    private EditText inputSurname;
     private EditText inputName;
     EditText inputAddress;
     private EditText inputEmail;
     private EditText inputPassword;
+    private EditText inputPhone;
     private ProgressDialog pDialog;
     SessionManager session;
     private SQLiteHandler db;
@@ -46,9 +48,11 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        inputSurname = findViewById(R.id.surname_input);
         inputName = findViewById(R.id.name_input);
         inputAddress = findViewById(R.id.address_input);
         inputEmail = findViewById(R.id.email_input);
+        inputPhone = findViewById(R.id.phone_input);
         inputPassword = findViewById(R.id.password_input);
         btnRegister = findViewById(R.id.submit_button);
         btnBack = findViewById(R.id.back_button);
@@ -75,14 +79,16 @@ public class RegisterActivity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                String surname = inputSurname.getText().toString().trim();
                 String name = inputName.getText().toString().trim();
                 String address = inputAddress.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
+                String phone = inputPhone.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !address.isEmpty()
-                        && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, address, email, password);
+                if (!surname.isEmpty() && !name.isEmpty() && !address.isEmpty()
+                        && !email.isEmpty() && !phone.isEmpty() && !password.isEmpty()) {
+                    registerUser(surname, name, address, email, phone, password);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -106,8 +112,8 @@ public class RegisterActivity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String name, final String address,
-                              final String email, final String password) {
+    private void registerUser(final String surname, final String name, final String address,
+                              final String email, final String phone, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -131,13 +137,15 @@ public class RegisterActivity extends Activity {
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
+                        String surname = user.getString("surname");
                         String name = user.getString("name");
                         String address = user.getString("address");
                         String email = user.getString("email");
+                        String phone = user.getString("phone");
                         String created_at = user .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(name, address, email, uid, created_at);
+                        db.addUser(surname, name, address, email, phone, uid, created_at);
 
                         Toast.makeText(getApplicationContext(),
                                 "User successfully registered. Try login now!",
@@ -173,9 +181,11 @@ public class RegisterActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<>();
+                params.put("surname", surname);
                 params.put("name", name);
                 params.put("address", address);
                 params.put("email", email);
+                params.put("phone", phone);
                 params.put("password", password);
 
                 return params;

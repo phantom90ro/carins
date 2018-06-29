@@ -39,14 +39,14 @@ public class LoginActivity extends Activity implements TextWatcher,
     private static final String TAG = LoginActivity.class.getSimpleName();
     private static final String PREF_NAME = "rem_prefs";
     private static final String KEY_REMEMBER = "remember";
-    private static final String KEY_USERNAME = "email";
+    private static final String KEY_USERNAME = "phone";
 
     Button btnLogin;
     Button btnRegister;
     private Switch rem_user;
     SharedPreferences sharedRemPref;
     SharedPreferences.Editor editor;
-    private EditText inputEmail;
+    private EditText inputPhone;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
@@ -62,7 +62,7 @@ public class LoginActivity extends Activity implements TextWatcher,
         editor = sharedRemPref.edit();
         rem_user = findViewById(R.id.rem_user);
 
-        inputEmail = findViewById(R.id.email_input);
+        inputPhone = findViewById(R.id.phone_input);
         inputPassword = findViewById(R.id.password_input);
         btnLogin = findViewById(R.id.log_in_button);
         btnRegister = findViewById(R.id.register_button);
@@ -73,8 +73,8 @@ public class LoginActivity extends Activity implements TextWatcher,
         } else {
             rem_user.setChecked(false);
         }
-        inputEmail.setText(sharedRemPref.getString(KEY_USERNAME, ""));
-        inputEmail.addTextChangedListener(this);
+        inputPhone.setText(sharedRemPref.getString(KEY_USERNAME, ""));
+        inputPhone.addTextChangedListener(this);
         rem_user.setOnCheckedChangeListener(this);
         editor.apply();
 
@@ -100,13 +100,13 @@ public class LoginActivity extends Activity implements TextWatcher,
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String email = inputEmail.getText().toString().trim();
+                String phone = inputPhone.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 // Check for empty data in the form
-                if (!email.isEmpty() && !password.isEmpty()) {
+                if (!phone.isEmpty() && !password.isEmpty()) {
                     // login user
-                    checkLogin(email, password);
+                    checkLogin(phone, password);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
@@ -149,7 +149,7 @@ public class LoginActivity extends Activity implements TextWatcher,
     /**
      * Function to verify login details in mysql db
      * */
-    private void checkLogin(final String email, final String password) {
+    private void checkLogin(final String phone, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -178,14 +178,15 @@ public class LoginActivity extends Activity implements TextWatcher,
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
+                        String surname = user.getString("surname");
                         String name = user.getString("name");
                         String address = user.getString("address");
                         String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
+                        String phone = user.getString("phone");
+                        String created_at = user.getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(name, address, email, uid, created_at);
+                        db.addUser(surname, name, address, email, phone, uid, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
@@ -220,7 +221,7 @@ public class LoginActivity extends Activity implements TextWatcher,
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email);
+                params.put("phone", phone);
                 params.put("password", password);
 
                 return params;
@@ -236,7 +237,7 @@ public class LoginActivity extends Activity implements TextWatcher,
      * */
     private void managePrefs() {
         if(rem_user.isChecked()) {
-            editor.putString(KEY_USERNAME, inputEmail.getText().toString().trim());
+            editor.putString(KEY_USERNAME, inputPhone.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER, true);
             editor.apply();
         } else {

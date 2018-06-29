@@ -43,13 +43,13 @@
             android:orientation="horizontal" >
 
             <EditText
-                android:id="@+id/email_input"
+                android:id="@+id/phone_input"
                 android:layout_width="220dp"
                 android:layout_height="40dp"
                 android:background="@drawable/input_bg"
                 android:ems="10"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
+                android:hint="@string/hint_phone"
+                android:inputType="phone"
                 android:textSize="@dimen/text_size" />
 
             <Switch
