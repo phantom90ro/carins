@@ -98,5 +98,5 @@
         android:layout_marginBottom="70dp"
         android:background="@drawable/button_color"
         android:text="@string/btn_logout"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" />
 </RelativeLayout>

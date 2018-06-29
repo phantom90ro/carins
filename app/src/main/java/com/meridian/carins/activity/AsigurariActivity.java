@@ -1,4 +1,6 @@
 package com.meridian.carins.activity;
 
-public class AsigurariActivity {
+import android.app.Activity;
+
+public class AsigurariActivity extends Activity{
 }

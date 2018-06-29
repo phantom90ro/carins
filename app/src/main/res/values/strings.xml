@@ -2,9 +2,10 @@
     <string name="app_name">Asigurari Auto</string>
 
     <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_name">Full Name</string>
-    <string name="hint_address">Address</string>
+    <string name="hint_password">Parola</string>
+    <string name="hint_surname">Nume</string>
+    <string name="hint_name">Prenume</string>
+    <string name="hint_address">Adresa</string>
 
     <string name="btn_login">Log In</string>
     <string name="btn_register">Register</string>
@@ -13,7 +14,7 @@
     <string name="btn_submit">Submit</string>
     <string name="textError">Login Failed</string>
     <string name="loginSuccess">Login Successful</string>
-    <string name="msg_welcome">Welcome</string>
+    <string name="msg_welcome">Bună ziua</string>
 
     <string name="placeholder_1">asigurari</string>
     <string name="placeholder_2">status</string>
