@@ -15,4 +15,9 @@
     <color name="disable_foreground_grey">#42221f1f</color>
     <color name="disable_thumb_grey">#1c000000</color>
 
+    <!-- test Colors -->
+    <color name="fab_color">#4CAF50</color>
+    <color name="status_text_negative">#E53935</color>
+    <color name="status_text_positive">#9CCC65</color>
+    <color name="status_text_label">#000</color>
 </resources>

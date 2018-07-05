@@ -21,4 +21,8 @@
     <string name="placeholder_2">asigurari</string>
     <string name="placeholder_3">status</string>
     <string name="placeholder_4">rca</string>
+    <string name="status_ci">Status CI:</string>
+    <string name="status_car">Status Talon:</string>
+    <string name="status_nonexistent">Inexistent</string>
+    <string name="status_ok">OK</string>
 </resources>

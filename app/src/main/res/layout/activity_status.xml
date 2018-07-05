@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg_gradient"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.StatusActivity">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_core"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:layout_marginBottom="@dimen/fab_margin_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_plus"
+        app:backgroundTint="@color/madder_lake"
+        app:pressedTranslationZ="2dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:layout_marginBottom="@dimen/fab_margin_core"
+        android:layout_alignStart="@id/fab_core"
+        android:layout_above="@id/fab_core"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_add"
+        android:visibility="invisible"
+        app:backgroundTint="@color/fab_color"
+        app:pressedTranslationZ="2dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:layout_marginBottom="@dimen/fab_margin_options"
+        android:layout_alignStart="@id/fab_core"
+        android:layout_above="@id/fab_3"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_car"
+        android:visibility="invisible"
+        app:backgroundTint="@color/fab_color"
+        app:pressedTranslationZ="2dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_ci"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:layout_marginBottom="@dimen/fab_margin_options"
+        android:layout_alignStart="@id/fab_core"
+        android:layout_above="@id/fab_car"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_contact"
+        android:visibility="invisible"
+        app:backgroundTint="@color/fab_color"
+        app:pressedTranslationZ="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/ci_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/status_ci"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_ok"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="@color/status_text_positive"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/car_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_below="@id/ci_status">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/status_car"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_nonexistent"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="@color/status_text_negative"/>
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/grid_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/car_status"
+        android:verticalSpacing="10dp"/>
+</RelativeLayout>

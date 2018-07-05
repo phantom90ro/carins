@@ -31,7 +31,7 @@ public class MenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
         txtName = findViewById(R.id.name);
         txtEmail = findViewById(R.id.email);
@@ -141,7 +141,9 @@ public class MenuActivity extends Activity {
     }
 
     public void statusCheck() {
-        Toast.makeText(MenuActivity.this, "Status",
-                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MenuActivity.this,
+                StatusActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
