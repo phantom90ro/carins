@@ -25,4 +25,8 @@
     <string name="status_car">Status Talon:</string>
     <string name="status_nonexistent">Inexistent</string>
     <string name="status_ok">OK</string>
+    <string name="test_uid">UID:</string>
+    <string name="choose">Selecteaza</string>
+    <string name="upload">Upload</string>
+    <string name="msg_ci_upload">Upload: Carte Identitate</string>
 </resources>

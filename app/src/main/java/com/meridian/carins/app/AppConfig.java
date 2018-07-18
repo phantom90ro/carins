@@ -8,4 +8,7 @@ public class AppConfig {
     // Server user register url
 //    public static String URL_REGISTER = "http://carins.meridian-itc.ro/register.php";
     public static String URL_REGISTER = "http://dev1.meridian-itc.ro/register.php";
+
+    // Server image upload url
+    public static String URL_UPLOAD = "http://10.0.2.2/android_image_api/store_image.php";
 }

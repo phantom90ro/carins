@@ -247,7 +247,6 @@ public class LoginActivity extends Activity implements TextWatcher,
         }
     }
 
-
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();

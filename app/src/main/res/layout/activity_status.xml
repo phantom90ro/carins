@@ -97,7 +97,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_below="@id/ci_status">
 
         <TextView
@@ -119,10 +118,37 @@
             android:textColor="@color/status_text_negative"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/uid_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_below="@id/car_status">
+
+        <TextView
+            android:id="@+id/uid_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/test_uid"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/uid_get"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
     <GridView
         android:id="@+id/grid_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/car_status"
+        android:layout_below="@id/uid_status"
         android:verticalSpacing="10dp"/>
 </RelativeLayout>

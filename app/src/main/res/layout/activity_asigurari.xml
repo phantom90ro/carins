@@ -1,19 +1,21 @@
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_bg_gradient"
-    android:fitsSystemWindows="true"
-    tools:context=".activity.AsigurariActivity" >
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/main_bg_gradient"
+android:fitsSystemWindows="true"
+tools:context=".activity.AsigurariActivity" >
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_color_selection"
-        android:text="@string/placeholder_4"
-        android:textColor="@android:color/black" />
+<Button
+    android:id="@+id/button6"
+    android:layout_width="300dp"
+    android:layout_height="40dp"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="196dp"
+    android:background="@drawable/button_color_selection"
+    android:text="@string/placeholder_4"
+    android:textColor="@android:color/black" />
 
 </RelativeLayout>

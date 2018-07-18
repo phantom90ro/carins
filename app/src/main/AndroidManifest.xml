@@ -42,7 +42,9 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.StatusActivity"></activity>
+        <activity android:name=".activity.StatusActivity" />
+        <activity android:name=".activity.AddIdentityCardActivity" />
+        <activity android:name=".activity.AddCarRegistrationActivity"></activity>
     </application>
 
 </manifest>

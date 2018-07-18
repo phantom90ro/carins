@@ -2,38 +2,31 @@ package com.meridian.carins.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meridian.carins.R;
+import com.meridian.carins.helper.SQLiteHandler;
+import com.meridian.carins.helper.SessionManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 public class StatusActivity extends Activity {
 
     FloatingActionButton fab_core, fab_ci, fab_car, fab_3;
     Animation fabOpen, fabClose, fabRClockwise, fabRAntiClockwise;
+    TextView txtUid;
     GridView gv;
     boolean isOpen = false;
+
+    private SQLiteHandler db;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,47 +34,21 @@ public class StatusActivity extends Activity {
         setContentView(R.layout.activity_status);
         init();
 
-        // testing grid
-        String[] plants = new String[] {
-                "Catalina ironwood",
-                "Cabinet cherry",
-                "Pale corydalis",
-                "Pink corydalis",
-                "Belle Isle cress",
-                "Land cress",
-                "Orange coneflower",
-                "Green coneflower",
-                "Yellow coneflower",
-                "Blue coneflower",
-                "Pink coneflower",
-                "Brown coneflower",
-                "Silver coneflower",
-                "Gold coneflower",
-                "Coast polypody",
-                "Water fern"
-        };
+        // SqLite database handler
+        db = new SQLiteHandler(getApplicationContext());
 
-        final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
-        gv.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, plantsList) {
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView tv = (TextView) view;
+        // session manager
+        session = new SessionManager(getApplicationContext());
 
-                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
-                        LayoutParams.MATCH_PARENT);
-                tv.setLayoutParams(lp);
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
 
-                LayoutParams params = (LayoutParams) tv.getLayoutParams();
-                params.width = getPixelsFromDPs(StatusActivity.this, 168);
-                tv.setLayoutParams(params);
-                tv.setGravity(Gravity.CENTER);
-                tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-                tv.setText(plantsList.get(position));
-                return tv;
-            }
-        });
+        // Fetching user details from SQLite
+        HashMap<String, String> user = db.getUserDetails();
+
+        String uid = user.get("uid");
+        txtUid.setText(uid);
 
         // Floating Action Button
         fab_core.setOnClickListener(new View.OnClickListener() {
@@ -136,21 +103,16 @@ public class StatusActivity extends Activity {
         goBack();
     }
 
-    public static int getPixelsFromDPs(Activity activity, int dps){
-        Resources r = activity.getResources();
-        int  px = (int) (TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
-        return px;
-    }
-
     public void fabCi() {
-        Toast.makeText(StatusActivity.this, "Adding CI...",
-                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(StatusActivity.this, AddIdentityCardActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void fabCar() {
-        Toast.makeText(StatusActivity.this, "Adding Car stuff...",
-                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(StatusActivity.this, AddCarRegistrationActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void fab3() {
@@ -165,7 +127,20 @@ public class StatusActivity extends Activity {
         finish();
     }
 
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(StatusActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void init() {
+        txtUid = findViewById(R.id.uid_get);
+
         fab_core = findViewById(R.id.fab_core);
         fab_ci = findViewById(R.id.fab_ci);
         fab_car = findViewById(R.id.fab_car);
