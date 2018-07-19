@@ -203,9 +203,9 @@ public class AddIdentityCardActivity extends Activity {
     }
 
     public void init() {
-        btnChoose = findViewById(R.id.choose_button);
-        btnUpload = findViewById(R.id.upload_button);
-        imagePreview = findViewById(R.id.imagePreview);
+        btnChoose = findViewById(R.id.choose_button_ci);
+        btnUpload = findViewById(R.id.upload_button_ci);
+        imagePreview = findViewById(R.id.imagePreviewCI);
     }
 
     private void logoutUser() {

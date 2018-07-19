@@ -29,4 +29,5 @@
     <string name="choose">Selecteaza</string>
     <string name="upload">Upload</string>
     <string name="msg_ci_upload">Upload: Carte Identitate</string>
+    <string name="msg_talon_upload">Upload: Talon</string>
 </resources>
