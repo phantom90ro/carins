@@ -18,7 +18,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "meridian_dev1";
+    private static final String DATABASE_NAME = "android_carins";
 
     // Login table name
     private static final String TABLE_USER = "s_users";
